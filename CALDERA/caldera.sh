@@ -30,5 +30,6 @@ cd caldera
 pip3 install -r requirements.txt
 
 echo -e "********************** DEMARRAGE DE CALDERA **********************"
+echo -e "********************** IDENTIFIANT DE CALDERA : (red : nxokrsBxiDJnEhfNndx4kJ8lObUrrL-ud9AOCIncyzc) **********************"
 
 python3 server.py
