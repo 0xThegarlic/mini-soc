@@ -48,3 +48,19 @@ systemctl daemon-reload            #
 systemctl enable kibana.service    #
 systemctl start kibana.service     #
 #***********************************
+
+
+echo -e "************************ GESTION DES TOKENS ET CREDS ************************"
+
+#**********************************************Gestion des tokens et Elastic password***********************************************#
+(echo "Enrollment token est :" && /usr/share/elasticsearch/bin/elasticsearch-create-enrollment-token --scope kibana) > ~/creds.txt  #
+(echo "Verification code :" && /usr/share/kibana/bin/kibana-verification-code) >> ~/creds.txt                                       #
+(echo "Elastic password :" && echo "y") | /usr/share/elasticsearch/bin/elasticsearch-reset-password -u elastic >> ~/creds.txt       #
+#************************************************************************************************************************************
+
+
+echo -e "******************** Le SIEM ELK EST DEPLOYE !! Vous pouvez accéder à Kibana via : https://$(hostname -I | awk '{print $1}')"
+
+echo -e "************************ Les Identifiantd d'Enrollement et de connexion sont: ************************"
+
+cat ~/creds.txt
