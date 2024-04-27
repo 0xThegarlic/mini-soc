@@ -23,6 +23,8 @@ sed -i '94i\xpack.security.authc.api_key.enabled: true' /etc/elasticsearch/elast
 sed -i 's/^#\(transport\.host: 0.0.0.0\)/\1/' /etc/elasticsearch/elasticsearch.yml                 #
 #***************************************************************************************************
 
+echo -e "************************ DEMARRAGE D'ELASTICSEARCH ************************"
+
 #************Démarrage d'Elasticsearch ************#
 systemctl daemon-reload                            #
 systemctl enable elasticsearch.service             #
@@ -43,12 +45,15 @@ sed -i 's/^#\(server\.port: 5601\)/\1/' /etc/kibana/kibana.yml                  
 sed -i 's/^#\(server\.host: "localhost"\)/server.host: "0.0.0.0"/' /etc/kibana/kibana.yml #
 #******************************************************************************************
 
+echo -e "************************ DEMARRAGE DE KIBANA ************************"
+
 #*******Démarrage de Kiabana*******#
 systemctl daemon-reload            #
 systemctl enable kibana.service    #
 systemctl start kibana.service     #
 #***********************************
 
+sleep 10
 
 echo -e "************************ GESTION DES TOKENS ET CREDS ************************"
 
