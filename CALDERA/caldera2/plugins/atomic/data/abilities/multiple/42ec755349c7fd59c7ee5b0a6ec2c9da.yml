@@ -1,0 +1,16 @@
+- description: 'Opens a /dev/bpf file (O_RDONLY), sets BPF filter for ''udp'' and
+    captures packets for a few seconds.
+
+    '
+  id: 42ec755349c7fd59c7ee5b0a6ec2c9da
+  name: Filtered Packet Capture FreeBSD using /dev/bpfN with sudo
+  platforms:
+    linux:
+      sh:
+        cleanup: rm -f /tmp/t1040_freebsd_pcapdemo
+        command: sudo /tmp/t1040_freebsd_pcapdemo -f -i em0 -t 3
+        payloads: []
+  tactic: multiple
+  technique:
+    attack_id: T1040
+    name: Network Sniffing

@@ -1,0 +1,17 @@
+*.pyc
+.history/*
+*.crt
+*.exe
+*.pyd
+*.DS_Store
+*.spec
+*.pstat
+*.tokens
+*__pycache__*
+.idea/*
+.logs/*
+!.logs/.gitkeep
+.idea
+shared.h
+sandcat.h
+payloads/sandcat.go-*

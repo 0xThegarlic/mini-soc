@@ -1,0 +1,16 @@
+- description: Adversaries may attempt to discover containers and other resources
+    that are available within a containers environment.
+  id: 3ec36f3e1ecddac08cbe9fc4febb1f41
+  name: Podman Container and Resource Discovery
+  platforms:
+    unknown:
+      sh:
+        cleanup: podman stop t1613_container; podman rmi -f t1613_container
+        command: podman build -t t1613 $PathtoAtomicsFolder/T1613/src/; podman run
+          --name t1613_container -d -t t1613; podman ps; podman stats --no-stream;
+          podman inspect $(podman ps -l -q --filter ancestor=t1613)
+        payloads: []
+  tactic: discovery
+  technique:
+    attack_id: T1613
+    name: Container and Resource Discovery

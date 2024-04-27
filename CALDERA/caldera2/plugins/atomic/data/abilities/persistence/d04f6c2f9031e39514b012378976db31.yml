@@ -1,0 +1,23 @@
+- description: 'Creates an Excel VBA Add-in file (XLAM) which runs automatically when
+    Excel is started
+
+    The sample XLAM provided launches the notepad as a proof-of-concept for persistent
+    execution from Office.
+
+    '
+  id: d04f6c2f9031e39514b012378976db31
+  name: Persistent Code Execution Via Excel VBA Add-in File (XLAM)
+  platforms:
+    windows:
+      psh:
+        cleanup: Stop-Process -Name "notepad","Excel" -ErrorAction Ignore; Start-Sleep
+          3; Remove-Item "$env:APPDATA\Microsoft\Excel\XLSTART\notepad.xlam" -ErrorAction
+          Ignore
+        command: Copy "PathToAtomicsFolder\T1137.006\bin\Addins\ExcelVBAaddin.xlam"
+          "$env:APPDATA\Microsoft\Excel\XLSTART\notepad.xlam"        ; Start-Process
+          "Excel"
+        payloads: []
+  tactic: persistence
+  technique:
+    attack_id: T1137.006
+    name: 'Office Application Startup: Add-ins'

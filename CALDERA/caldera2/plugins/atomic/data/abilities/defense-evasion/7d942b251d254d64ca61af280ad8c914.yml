@@ -1,0 +1,21 @@
+- description: 'Recursively delete the temporary directory and all files contained
+    within it
+
+    '
+  id: 7d942b251d254d64ca61af280ad8c914
+  name: Delete an entire folder - FreeBSD/Linux/macOS
+  platforms:
+    darwin:
+      sh:
+        cleanup: ''
+        command: rm -rf /tmp/victim-folder
+        payloads: []
+    linux:
+      sh:
+        cleanup: ''
+        command: rm -rf /tmp/victim-folder
+        payloads: []
+  tactic: defense-evasion
+  technique:
+    attack_id: T1070.004
+    name: 'Indicator Removal on Host: File Deletion'

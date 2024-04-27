@@ -1,0 +1,16 @@
+- description: Executes an HTA Application using JScript script engine using local
+    UNC path simulating lateral movement.
+  id: bf9cc3d98c38f79c948a0f4a7f888034
+  name: Invoke HTML Application - Jscript Engine over Local UNC Simulating Lateral
+    Movement
+  platforms:
+    windows:
+      psh:
+        cleanup: ''
+        command: Invoke-ATHHTMLApplication -HTAFilePath Test.hta -ScriptEngine JScript
+          -AsLocalUNCPath -SimulateLateralMovement -MSHTAFilePath $env:windir\system32\mshta.exe
+        payloads: []
+  tactic: defense-evasion
+  technique:
+    attack_id: T1218.005
+    name: 'Signed Binary Proxy Execution: Mshta'

@@ -1,0 +1,17 @@
+- description: 'Executes an MSI containing an embedded EXE using the WMI Win32_Product
+    class
+
+    '
+  id: c905c33c06f38484cab101ae93a93a9a
+  name: WMI Win32_Product Class - Execute Local MSI file with an embedded EXE
+  platforms:
+    windows:
+      psh:
+        cleanup: ''
+        command: 'Invoke-CimMethod -ClassName Win32_Product -MethodName #{action}
+          -Arguments @{ PackageLocation = ''#{msi_payload}'' }'
+        payloads: []
+  tactic: defense-evasion
+  technique:
+    attack_id: T1218.007
+    name: 'Signed Binary Proxy Execution: Msiexec'

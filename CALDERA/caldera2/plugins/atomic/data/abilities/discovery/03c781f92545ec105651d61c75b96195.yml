@@ -1,0 +1,19 @@
+- description: 'Darkside ransomware utilises various ESXCLI commands to obtain information
+    about the ESXi Host.
+
+    [Reference](https://www.trendmicro.com/en_ph/research/21/e/darkside-linux-vms-targeted.html)
+
+    '
+  id: 03c781f92545ec105651d61c75b96195
+  name: ESXi - Darkside system information discovery
+  platforms:
+    linux:
+      cmd:
+        cleanup: ''
+        command: echo "" | "PathToAtomicsFolder\..\ExternalPayloads\plink.exe" "atomic.local"
+          -ssh  -l "root" -pw "pass" -m "PathToAtomicsFolder\T1082\src\esx_darkside_discovery.txt"
+        payloads: []
+  tactic: discovery
+  technique:
+    attack_id: T1082
+    name: System Information Discovery

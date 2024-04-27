@@ -1,0 +1,22 @@
+- description: 'Loads an XLL file using the excel add-ins library.
+
+    This causes excel to launch Notepad.exe as a child process. This atomic test does
+    not include persistent code execution as you would typically see when this is
+    implemented in malware.
+
+    '
+  id: cb76bca4190d9b176db464bc3e104e41
+  name: Code Executed Via Excel Add-in File (XLL)
+  platforms:
+    windows:
+      psh:
+        cleanup: Stop-Process -Name "notepad","Excel" -ErrorAction Ignore
+        command: $excelApp = New-Object -COMObject "Excel.Application"; if(-not $excelApp.path.contains("Program
+          Files (x86)")){;     Write-Host "64-bit Office";     $excelApp.RegisterXLL("PathToAtomicsFolder\T1137.006\bin\Addins\excelxll_x64.xll");
+          }; else{;   Write-Host "32-bit Office";   $excelApp.RegisterXLL("PathToAtomicsFolder\T1137.006\bin\Addins\excelxll_x86.xll");
+          }
+        payloads: []
+  tactic: persistence
+  technique:
+    attack_id: T1137.006
+    name: 'Office Application Startup: Add-ins'

@@ -1,0 +1,32 @@
+- description: 'Executes the Install Method. Upon execution, version information will
+    be displayed the .NET framework install utility.
+
+    '
+  id: 9eb61c26282c5b324e1fb6cceeefc445
+  name: InstallUtil Install method call
+  platforms:
+    windows:
+      psh:
+        cleanup: $InstallerAssemblyDir = "$Env:TEMP\"; $InstallerAssemblyFileName
+          = "T1218.004.dll"; $InstallerAssemblyFullPath = Join-Path -Path $InstallerAssemblyDir
+          -ChildPath $InstallerAssemblyFileName; Remove-Item -Path $InstallerAssemblyFullPath
+          -ErrorAction Ignore
+        command: '# Import the required test harness function, Invoke-BuildAndInvokeInstallUtilAssembly;
+          . "eaecbe_InstallUtilTestHarness.ps1"; ; $InstallerAssemblyDir = "$Env:TEMP\";
+          $InstallerAssemblyFileName = "T1218.004.dll"; $InstallerAssemblyFullPath
+          = Join-Path -Path $InstallerAssemblyDir -ChildPath $InstallerAssemblyFileName;
+          ; $CommandLine = "/logfile= /logtoconsole=false /installtype=notransaction
+          /action=install `"$InstallerAssemblyFullPath`""; $ExpectedOutput = ''Constructor_Install_'';
+          ; $TestArgs = @{;     OutputAssemblyDirectory = $InstallerAssemblyDir;     OutputAssemblyFileName
+          = $InstallerAssemblyFileName;     InvocationMethod = ''Executable'';     CommandLine
+          = $CommandLine; }; ; $ActualOutput = Invoke-BuildAndInvokeInstallUtilAssembly
+          @TestArgs; ; if ($ActualOutput -ne $ExpectedOutput) {;     throw @"; InstallUtil
+          Install method execution test failure. Installer assembly execution output
+          did not match the expected output.; Expected: $ExpectedOutput; Actual: $ActualOutput;
+          "@; }'
+        payloads:
+        - eaecbe_InstallUtilTestHarness.ps1
+  tactic: defense-evasion
+  technique:
+    attack_id: T1218.004
+    name: 'Signed Binary Proxy Execution: InstallUtil'

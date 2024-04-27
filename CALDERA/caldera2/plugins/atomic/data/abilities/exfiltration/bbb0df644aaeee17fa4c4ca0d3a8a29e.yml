@@ -1,0 +1,20 @@
+- description: 'Take a file/directory, split it into 5Mb chunks
+
+    '
+  id: bbb0df644aaeee17fa4c4ca0d3a8a29e
+  name: Data Transfer Size Limits
+  platforms:
+    darwin:
+      sh:
+        cleanup: if [ -f /tmp/T1030/safe_to_delete ]; then rm -rf /tmp/T1030; fi;
+        command: cd /tmp/T1030; split -b 5000000 T1030_urandom; ls -l /tmp/T1030
+        payloads: []
+    linux:
+      sh:
+        cleanup: if [ -f /tmp/T1030/safe_to_delete ]; then rm -rf /tmp/T1030; fi;
+        command: cd /tmp/T1030; split -b 5000000 T1030_urandom; ls -l /tmp/T1030
+        payloads: []
+  tactic: exfiltration
+  technique:
+    attack_id: T1030
+    name: Data Transfer Size Limits

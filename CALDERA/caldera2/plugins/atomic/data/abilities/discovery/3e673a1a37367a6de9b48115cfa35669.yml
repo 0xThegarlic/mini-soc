@@ -1,0 +1,16 @@
+- description: "Executes the driverquery command to list drivers installed on the\
+    \ system. Adversaries utilize the feature to enumerate the driver and it can be\n\
+    used for Exploitation. \ncommand /v - provide verbose output but not valid for\
+    \ signed drivers\n        /si - provide information about signed drivers \n"
+  id: 3e673a1a37367a6de9b48115cfa35669
+  name: Driver Enumeration using DriverQuery
+  platforms:
+    windows:
+      cmd:
+        cleanup: ''
+        command: driverquery /v && driverquery /si
+        payloads: []
+  tactic: discovery
+  technique:
+    attack_id: T1082
+    name: System Information Discovery

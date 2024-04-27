@@ -1,0 +1,15 @@
+- description: 'This test sets the SetGID flag on a file in FreeBSD.
+
+    '
+  id: c7cecdfaa9cd2d8e31be2304587b990a
+  name: Set a SetGID flag on file (freebsd)
+  platforms:
+    linux:
+      sh:
+        cleanup: rm /tmp/evilBinary
+        command: touch /tmp/evilBinary; chown root /tmp/evilBinary; chmod g+xs /tmp/evilBinary
+        payloads: []
+  tactic: multiple
+  technique:
+    attack_id: T1548.001
+    name: 'Abuse Elevation Control Mechanism: Setuid and Setgid'

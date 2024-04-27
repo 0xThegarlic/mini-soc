@@ -1,0 +1,31 @@
+- description: 'Uses dd to add a zero byte, high-quality random data, and low-quality
+    random data to the binary to change the hash.
+
+
+    Upon successful execution, dd will modify `/tmp/evil-binary`, therefore the expected
+    hash will change.
+
+    '
+  id: 96735f5b42e62cc245bb3b86a9bf6b64
+  name: Pad Binary to Change Hash - Linux/macOS dd
+  platforms:
+    darwin:
+      sh:
+        cleanup: rm /tmp/evil-binary
+        command: 'dd if=/dev/zero bs=1 count=1 >> /tmp/evil-binary #adds null bytes;
+          dd if=/dev/random bs=1 count=1 >> /tmp/evil-binary #adds high-quality random
+          data; dd if=/dev/urandom bs=1 count=1 >> /tmp/evil-binary #adds low-quality
+          random data'
+        payloads: []
+    linux:
+      sh:
+        cleanup: rm /tmp/evil-binary
+        command: 'dd if=/dev/zero bs=1 count=1 >> /tmp/evil-binary #adds null bytes;
+          dd if=/dev/random bs=1 count=1 >> /tmp/evil-binary #adds high-quality random
+          data; dd if=/dev/urandom bs=1 count=1 >> /tmp/evil-binary #adds low-quality
+          random data'
+        payloads: []
+  tactic: defense-evasion
+  technique:
+    attack_id: T1027.001
+    name: 'Obfuscated Files or Information: Binary Padding'

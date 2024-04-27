@@ -1,0 +1,18 @@
+- description: 'The first sub-test truncates the log file to zero bytes via /dev/null
+    and the second sub-test fills the log file with null bytes(zeroes) via /dev/zero,
+    using cat utility
+
+    '
+  id: 0dec370d6ef97df039f26476a85f4d20
+  name: Delete log files via cat utility by appending /dev/null or /dev/zero (freebsd)
+  platforms:
+    linux:
+      sh:
+        cleanup: ''
+        command: 'cat /dev/null > /var/log/messages #truncating the file to zero bytes;
+          cat /dev/zero > /var/lol/messages #log file filled with null bytes(zeros)'
+        payloads: []
+  tactic: defense-evasion
+  technique:
+    attack_id: T1070.002
+    name: 'Indicator Removal on Host: Clear FreeBSD, Linux or Mac System Logs'

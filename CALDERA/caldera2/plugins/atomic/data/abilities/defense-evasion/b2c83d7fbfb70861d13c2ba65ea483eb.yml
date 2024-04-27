@@ -1,0 +1,18 @@
+- description: 'The atomic test disables the journal logging using built-in systemctl
+    utility
+
+    '
+  id: b2c83d7fbfb70861d13c2ba65ea483eb
+  name: Disable journal logging via systemctl utility
+  platforms:
+    linux:
+      sh:
+        cleanup: 'sudo systemctl start systemd-journald #starts journal service; sudo
+          systemctl enable systemd-journald #starts journal service automatically
+          at boot time'
+        command: 'sudo systemctl stop systemd-journald #disables journal logging'
+        payloads: []
+  tactic: defense-evasion
+  technique:
+    attack_id: T1562
+    name: Impair Defenses

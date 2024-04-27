@@ -1,0 +1,19 @@
+- description: 'An adversary will using ESXCLI to enumerate the Virtual Machines on
+    the host prior to executing power off routine.
+
+    [Reference](https://www.crowdstrike.com/blog/hypervisor-jackpotting-ecrime-actors-increase-targeting-of-esxi-servers/)
+
+    '
+  id: 80ad60744c84ce8f8795220ee6cb003e
+  name: ESXi - VM Discovery using ESXCLI
+  platforms:
+    linux:
+      cmd:
+        cleanup: ''
+        command: echo "" | "PathToAtomicsFolder\..\ExternalPayloads\plink.exe" "atomic.local"
+          -ssh  -l "root" -pw "pass" -m "PathToAtomicsFolder\T1082\src\esx_vmdiscovery.txt"
+        payloads: []
+  tactic: discovery
+  technique:
+    attack_id: T1082
+    name: System Information Discovery

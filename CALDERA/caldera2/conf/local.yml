@@ -1,0 +1,44 @@
+ability_refresh: 60
+api_key_blue: vbCr5a2_0SBQyKZ9boe8LCl7VC0jxpYwW_IrHgNmTao
+api_key_red: tD4MDroiSnLSBLz1MWn9vY8w7gsoA_KJlJwzFBhOLXE
+app.contact.dns.domain: mycaldera.caldera
+app.contact.dns.socket: 0.0.0.0:8853
+app.contact.gist: API_KEY
+app.contact.html: /weather
+app.contact.http: http://0.0.0.0:8888
+app.contact.tcp: 0.0.0.0:7010
+app.contact.udp: 0.0.0.0:7011
+app.contact.websocket: 0.0.0.0:7012
+crypt_salt: 2lA3UjK488OWR5U0wTAHENneu_-g2wDYGOl6UvoM-sk
+encryption_key: 14smVe2xq1A5V7-9qtAKxFeTK6eUK67URS1XhgxIckI
+exfil_dir: /tmp/caldera
+host: 0.0.0.0
+plugins:
+- access
+- atomic
+- compass
+- debrief
+- fieldmanual
+- gameboard
+- manx
+- response
+- sandcat
+- stockpile
+- training
+port: 8888
+reports_dir: /tmp
+requirements:
+  go:
+    command: go version
+    type: installed_program
+    version: 1.11
+  python:
+    attr: version
+    module: sys
+    type: python_module
+    version: 3.6.1
+users:
+  blue:
+    blue: i1emTJXGclBe5s-2ftWTAiL6X7gfMqY3rYNmu3KL_fA
+  red:
+    red: nxokrsBxiDJnEhfNndx4kJ8lObUrrL-ud9AOCIncyzc

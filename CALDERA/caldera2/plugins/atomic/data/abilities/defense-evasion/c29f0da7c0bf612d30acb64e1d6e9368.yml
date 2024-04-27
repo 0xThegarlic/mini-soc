@@ -1,0 +1,15 @@
+- description: Executes an HTA Application with Simulate lateral movement over UNC
+    Path.
+  id: c29f0da7c0bf612d30acb64e1d6e9368
+  name: Invoke HTML Application - Simulate Lateral Movement over UNC Path
+  platforms:
+    windows:
+      psh:
+        cleanup: ''
+        command: Invoke-ATHHTMLApplication -TemplatePE -AsLocalUNCPath -MSHTAFilePath
+          $env:windir\system32\mshta.exe
+        payloads: []
+  tactic: defense-evasion
+  technique:
+    attack_id: T1218.005
+    name: 'Signed Binary Proxy Execution: Mshta'

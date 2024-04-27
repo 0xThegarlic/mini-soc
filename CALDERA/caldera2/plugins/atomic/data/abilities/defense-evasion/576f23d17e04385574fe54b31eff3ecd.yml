@@ -1,0 +1,20 @@
+- description: 'Delete a single file from the temporary directory
+
+    '
+  id: 576f23d17e04385574fe54b31eff3ecd
+  name: Delete a single file - FreeBSD/Linux/macOS
+  platforms:
+    darwin:
+      sh:
+        cleanup: rm -rf /tmp/victim-files/
+        command: rm -f /tmp/victim-files/T1070.004-test.txt
+        payloads: []
+    linux:
+      sh:
+        cleanup: rm -rf /tmp/victim-files/
+        command: rm -f /tmp/victim-files/T1070.004-test.txt
+        payloads: []
+  tactic: defense-evasion
+  technique:
+    attack_id: T1070.004
+    name: 'Indicator Removal on Host: File Deletion'

@@ -1,0 +1,15 @@
+- description: 'Disables syslog collection
+
+    '
+  id: 3a68db58e75f8887944e846f0455f758
+  name: Disable syslog
+  platforms:
+    linux:
+      sh:
+        cleanup: systemctl start rsyslog ; systemctl enable rsyslog
+        command: systemctl stop rsyslog ; systemctl disable rsyslog
+        payloads: []
+  tactic: defense-evasion
+  technique:
+    attack_id: T1562.001
+    name: 'Impair Defenses: Disable or Modify Tools'

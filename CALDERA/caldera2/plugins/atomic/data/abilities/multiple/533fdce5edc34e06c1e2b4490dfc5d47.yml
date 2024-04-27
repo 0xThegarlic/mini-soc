@@ -1,0 +1,15 @@
+- description: 'Opens a /dev/bpf file (O_RDONLY) and captures packets for a few seconds.
+
+    '
+  id: 533fdce5edc34e06c1e2b4490dfc5d47
+  name: Packet Capture FreeBSD using /dev/bpfN with sudo
+  platforms:
+    linux:
+      sh:
+        cleanup: rm -f /tmp/t1040_freebsd_pcapdemo
+        command: sudo /tmp/t1040_freebsd_pcapdemo -i em0 -t 3
+        payloads: []
+  tactic: multiple
+  technique:
+    attack_id: T1040
+    name: Network Sniffing

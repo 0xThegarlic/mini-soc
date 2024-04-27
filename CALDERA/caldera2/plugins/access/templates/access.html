@@ -1,0 +1,192 @@
+<link rel="stylesheet" href="/access/css/access.css">
+
+<div id="access" class="section-profile">
+  <div class="row">
+    <div class="topleft duk-icon"><img onclick="removeSection('access')" src="/gui/img/x.png"></div>
+    <div id="access-sidebar" class="column section-border" style="flex:25%;">
+      <img src="/access/img/access.png">
+      <h4 style="margin-bottom:-5px">Access</h4>
+      <p class="section-description">
+          Here you can task any agent with any ability from the database - outside the scope of an operation. This is
+          especially useful for conducting initial access attacks. To do this, deploy an agent locally and task it
+          with either pre-ATT&CK or initial access tactics, pointed at any target. You can even deploy an agent
+          remotely and use it as a proxy to conduct your initial access attacks. To the right, you'll see every
+          ability directly tasked to an agent. Click the &#9733; to view the output.
+      </p>
+      <select id="access-pets" onchange="refresh();">
+        <option disabled selected>Choose a runner</option>
+        {% for a in agents %}
+            <option value={{ a.paw }}>{{ a.host }} - {{ a.paw }}</option>
+        {% endfor %}}
+      </select>
+      <input id="ability-search-filter" style="width:75%;" type="text" placeholder="Search for abilities..." onkeyup="searchAbilities('access-sidebar', {{ abilities }});">
+      <select id="ability-tactic-filter" onchange="populateTechniques('access-sidebar', {{ abilities | sort(attribute='technique_id') }});">
+          <option disabled selected>Choose a tactic</option>
+            {% for tactic in tactics %}
+                <option value={{ tactic }} data-tactic={{ tactic }}>{{ tactic }}</option>
+            {% endfor %}}
+      </select>
+      <select id="ability-technique-filter" onchange="populateAbilities('access-sidebar', {{ abilities | sort(attribute='name') }});">
+          <option disabled selected>Choose a technique</option>
+      </select>
+      <select id="ability-ability-filter" onchange="showProperties()">
+          <option disabled selected>0 abilities</option>
+      </select>
+      <br>
+      <button id="exploitExploit" type="button" class="button-success atomic-button" onclick="runExploit()">Run</button>
+    </div>
+    <div class="column" style="flex:75%">
+        <ul id="exploits" class="profile-tests"></ul>
+    </div>
+  </div>
+</div>
+
+<li id="exploit-template" class="exploit-box" style="display: none">
+    <center>
+        <div class="exploit-banner">
+            <p id="exploit-tactic"></p>
+        </div>
+        <img id="exploit-image"/>
+        <p id="exploit-status"></p>
+        <h4 id="exploit-name"></h4>
+        <p id="exploit-result">&nbsp;</p>
+    </center>
+</li>
+
+<div id="properties-modal" class="modal">
+    <form class="modal-content" style="width:90%;">
+        <div class="container modal-box">
+            <div class="row ability-viewer">
+                <div class="column" style="flex:100%">
+                    <center>
+                        <p style="text-align: center;font-size:12px;margin-top:-10px;margin-bottom:25px">
+                            Please review the ability details and click OK. If the ability has properties, ensure they have valid values.
+                        </p>
+                        <h4 id="exploit-description" style="margin-top:2px;text-align:center"></h4>
+                        <div class="exploit-exploit">
+                            <pre id="exploit-exploit"></pre>
+                        </div>
+                        <select id="currentObfuscation" class="dark-select" style="width:33%">
+                          {% for o in obfuscators %}
+                            <option value="{{ o.name }}">Use {{ o.name }} obfuscation</option>
+                          {% endfor %}
+                        </select>
+                        <br>
+                        <ul id="exploit-properties"></ul>
+                    </center>
+                    <div class="div-button" onclick="document.getElementById('properties-modal').style.display='none'">OK</div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<li id="property-template" class="row-simple" style="display: none;list-style-type:none">
+    <table class="obfuscation-table" border=1 rules=rows>
+        <tr>
+            <td style="width:50%"><p id="exploit-trait"></p></td>
+            <td style="width:50%"><p id="exploit-value" contenteditable="true">-</p></td>
+        </tr>
+    </table>
+</li>
+
+<script src="/gui/js/ability.js"></script>
+<script>
+    $(document).ready(function () {
+        stream('An agent is not necessarily deployed in a target network - it can run server-side as your assistant');
+    });
+
+    let refresher = setInterval(refresh, 10000);
+    $('.section-profile').bind('destroyed', function() {
+        clearInterval(refresher);
+    });
+
+    function refresh(){
+        function refreshCallback(data){
+            $('#exploits').empty();
+            data[0].links.forEach(function(link) {
+                let template = $("#exploit-template").clone();
+                template.find('#exploit-tactic').text(link.ability.tactic);
+                template.find('#exploit-name').text(link.ability.name);
+                if (link.status === 0) {
+                    template.find('#exploit-status').text('SUCCESS');
+                    template.find('#exploit-image').attr('src', '/access/img/unlocked.png');
+                    if(link.output)
+                        template.find('#exploit-result').html('&#9733;').click(function(){
+                            fetchResult(link);
+                        });
+                } else if (link.status > 0) {
+                    template.find('#exploit-status').text('FAILED');
+                    template.find('#exploit-image').attr('src', '/access/img/locked.png');
+                    if(link.output)
+                        template.find('#exploit-result').html('&#9733;').click(function(){
+                            fetchResult(link);
+                        });
+                } else {
+                    template.find('#exploit-status').text('IN-PROGRESS');
+                    template.find('#exploit-image').attr('src', '/access/img/progress-lock.png');
+                }
+                template.show();
+                $('#exploits').append(template);
+            });
+        }
+        let paw = $('#access-pets option:selected').attr('value');
+        if(paw != null) {
+            restRequest('POST', {'index':'agents', 'paw': paw}, refreshCallback);
+        }
+    }
+
+    function showProperties(){
+        function propertiesCallback(data){
+            let cmd = atob(data[0].test);
+            let found = [], rxp = /{([^}]+)}/g, str = cmd, curMatch;
+            while(curMatch = rxp.exec(str)) {
+                found.push(curMatch[1]);
+            }
+            $('#exploit-properties').empty();
+            $('#exploit-description').text(data[0].description);
+            $('#exploit-exploit').text(atob(data[0].test));
+
+            found.forEach(function(prop){
+                let template = $("#property-template").clone();
+                template.find('#exploit-trait').text(prop);
+                template.show();
+                $('#exploit-properties').append(template);
+            });
+            document.getElementById("properties-modal").style.display = "block";
+        }
+        let ability = $('#ability-ability-filter option:selected').data('ability');
+        restRequest('POST', {'index':'abilities', 'ability_id': ability.ability_id}, propertiesCallback);
+    }
+
+    function runExploit(){
+      function runExploitCallback(data){
+          stream('Exploit tasked!');
+          refresh();
+      }
+      let ability = $('#ability-ability-filter option:selected').data('ability');
+      let facts = [];
+      $("#exploit-properties tr").each(function () {
+            let trait = $(this.cells[0]).text();
+            let value = $(this.cells[1]).text();
+            facts.push({'trait':trait,'value':value});
+      });
+      let paw = $('#access-pets option:selected').attr('value');
+      if(paw == null || ability.ability_id == null) {
+          alert('Missing requirement!');
+      } else {
+          let data = {'paw': paw, 'ability_id': ability.ability_id, 'facts': facts, 'obfuscator':$('#currentObfuscation').val()};
+          restRequest('POST', data, runExploitCallback, '/plugin/access/exploit');
+      }
+    }
+
+    function fetchResult(link) {
+        let modal = $('#alert-text');
+        function loadResult(data) {
+            document.getElementById('alert-modal').style.display='block';
+            modal.html('<i>'+atob(link.command)+'</i><hr><pre style="font-size:15px;">'+atob(data.output)+'</pre>');
+        }
+        modal.html('');
+        restRequest('POST', {'index':'result','link_id':link.unique}, loadResult);
+    }
+</script>

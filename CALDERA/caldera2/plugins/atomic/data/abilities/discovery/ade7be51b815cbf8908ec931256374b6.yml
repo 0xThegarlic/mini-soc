@@ -1,0 +1,24 @@
+- description: 'Identify remote systems via arp.
+
+
+    Upon successful execution, sh will execute arp to list out the arp cache. Output
+    will be via stdout.
+
+    '
+  id: ade7be51b815cbf8908ec931256374b6
+  name: Remote System Discovery - arp nix
+  platforms:
+    darwin:
+      sh:
+        cleanup: ''
+        command: arp -a | grep -v '^?'
+        payloads: []
+    linux:
+      sh:
+        cleanup: ''
+        command: arp -a | grep -v '^?'
+        payloads: []
+  tactic: discovery
+  technique:
+    attack_id: T1018
+    name: Remote System Discovery

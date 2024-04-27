@@ -1,0 +1,18 @@
+- description: 'Attempt an RDP session via Remote Desktop Application to a DomainController.
+
+    '
+  id: 28ed45c4da059b14a1b2d4f061b912b8
+  name: RDP to DomainController
+  platforms:
+    windows:
+      psh:
+        cleanup: $p=Tasklist /svc /fi "IMAGENAME eq mstsc.exe" /fo csv | convertfrom-csv;
+          if(-not ([string]::IsNullOrEmpty($p.PID))) { Stop-Process -Id $p.PID }
+        command: '$Server=#{logonserver}; $User = Join-Path #{domain} #{username};
+          $Password="#{password}"; cmdkey /generic:TERMSRV/$Server /user:$User /pass:$Password;
+          mstsc /v:$Server; echo "RDP connection established"'
+        payloads: []
+  tactic: lateral-movement
+  technique:
+    attack_id: T1021.001
+    name: 'Remote Services: Remote Desktop Protocol'

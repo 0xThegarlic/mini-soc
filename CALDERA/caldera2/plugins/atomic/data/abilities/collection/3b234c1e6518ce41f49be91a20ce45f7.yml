@@ -1,0 +1,18 @@
+- description: "Upon successful execution, this test will utilize a wordlist to enumerate\
+    \ the public facing containers and blobs of a specified Azure storage account.\
+    \ \nSee https://www.netspi.com/blog/technical/cloud-penetration-testing/anonymously-enumerating-azure-file-resources/\
+    \ . \n"
+  id: 3b234c1e6518ce41f49be91a20ce45f7
+  name: Azure - Enumerate Azure Blobs with MicroBurst
+  platforms:
+    unknown:
+      psh:
+        cleanup: remove-item $env:temp\T1530Test1.txt -erroraction silentlycontinue
+        command: import-module "PathToAtomicsFolder\..\ExternalPayloads\Invoke-EnumerateAzureBlobs.ps1";
+          Invoke-EnumerateAzureBlobs -base secure -permutations "PathToAtomicsFolder\..\ExternalPayloads\permutations.txt"
+          -outputfile "$env:temp\T1530Test1.txt"
+        payloads: []
+  tactic: collection
+  technique:
+    attack_id: T1530
+    name: Data from Cloud Storage Object

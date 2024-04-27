@@ -1,0 +1,31 @@
+- description: 'Executes the Uninstall Method. Upon execution, help information will
+    be displayed for InstallUtil.
+
+    '
+  id: b26ce33f4cd29428f619fc600e052350
+  name: InstallUtil HelpText method call
+  platforms:
+    windows:
+      psh:
+        cleanup: $InstallerAssemblyDir = "$Env:TEMP\"; $InstallerAssemblyFileName
+          = "T1218.004.dll"; $InstallerAssemblyFullPath = Join-Path -Path $InstallerAssemblyDir
+          -ChildPath $InstallerAssemblyFileName; Remove-Item -Path $InstallerAssemblyFullPath
+          -ErrorAction Ignore
+        command: '# Import the required test harness function, Invoke-BuildAndInvokeInstallUtilAssembly;
+          . "eaecbe_InstallUtilTestHarness.ps1"; ; $InstallerAssemblyDir = "$Env:TEMP\";
+          $InstallerAssemblyFileName = "T1218.004.dll"; $InstallerAssemblyFullPath
+          = Join-Path -Path $InstallerAssemblyDir -ChildPath $InstallerAssemblyFileName;
+          ; $CommandLine = "/? `"$InstallerAssemblyFullPath`""; $ExpectedOutput =
+          ''Constructor_HelpText_''; ; $TestArgs = @{;     OutputAssemblyDirectory
+          = $InstallerAssemblyDir;     OutputAssemblyFileName = $InstallerAssemblyFileName;     InvocationMethod
+          = ''Executable'';     CommandLine = $CommandLine; }; ; $ActualOutput = Invoke-BuildAndInvokeInstallUtilAssembly
+          @TestArgs; ; if ($ActualOutput -ne $ExpectedOutput) {;     throw @"; InstallUtil
+          HelpText property execution test failure. Installer assembly execution output
+          did not match the expected output.; Expected: $ExpectedOutput; Actual: $ActualOutput;
+          "@; }'
+        payloads:
+        - eaecbe_InstallUtilTestHarness.ps1
+  tactic: defense-evasion
+  technique:
+    attack_id: T1218.004
+    name: 'Signed Binary Proxy Execution: InstallUtil'

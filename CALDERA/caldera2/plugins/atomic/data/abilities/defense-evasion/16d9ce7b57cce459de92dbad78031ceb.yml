@@ -1,0 +1,16 @@
+- description: "Instead of completely \"disabling\" iptables, adversaries may choose\
+    \ to delete a certain rule, which, for example, blocks data exfiltration via ftp.\n\
+    By doing so, they may cause less noise to avoid detection. \n"
+  id: 16d9ce7b57cce459de92dbad78031ceb
+  name: Modify/delete iptables firewall rules
+  platforms:
+    linux:
+      sh:
+        cleanup: iptables-restore < /tmp/iptables.rules
+        command: iptables-save > /tmp/iptables.rules; iptables -D OUTPUT -p tcp --dport
+          21 -j DROP
+        payloads: []
+  tactic: defense-evasion
+  technique:
+    attack_id: T1562.004
+    name: 'Impair Defenses: Disable or Modify System Firewall'

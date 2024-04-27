@@ -1,0 +1,22 @@
+- description: 'An adversary enables the SSH service on a ESXi host to maintain persistent
+    access to the host and to carryout subsequent operations.
+
+    '
+  id: 65fe23c14ccab48e275a9df5d25404b7
+  name: ESXi - Enable SSH via PowerCLI
+  platforms:
+    linux:
+      psh:
+        cleanup: Set-PowerCLIConfiguration -InvalidCertificateAction Ignore -ParticipateInCEIP:$false
+          -Confirm:$false ; Connect-VIServer -Server atomic.local -User root -Password
+          pass; Get-VMHostService -VMHost atomic.local | Where-Object {$_.Key -eq
+          "TSM-SSH" } | Stop-VMHostService -Confirm:$false
+        command: Set-PowerCLIConfiguration -InvalidCertificateAction Ignore -ParticipateInCEIP:$false
+          -Confirm:$false ; Connect-VIServer -Server atomic.local -User root -Password
+          pass; Get-VMHostService -VMHost atomic.local | Where-Object {$_.Key -eq
+          "TSM-SSH" } | Start-VMHostService -Confirm:$false
+        payloads: []
+  tactic: lateral-movement
+  technique:
+    attack_id: T1021.004
+    name: 'Remote Services: SSH'

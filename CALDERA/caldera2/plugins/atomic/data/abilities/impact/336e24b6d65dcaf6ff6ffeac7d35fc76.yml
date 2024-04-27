@@ -1,0 +1,20 @@
+- description: 'This test restarts a FreeBSD/macOS/Linux system.
+
+    '
+  id: 336e24b6d65dcaf6ff6ffeac7d35fc76
+  name: Restart System via `shutdown` - FreeBSD/macOS/Linux
+  platforms:
+    darwin:
+      sh:
+        cleanup: ''
+        command: shutdown -r now
+        payloads: []
+    linux:
+      sh:
+        cleanup: ''
+        command: shutdown -r now
+        payloads: []
+  tactic: impact
+  technique:
+    attack_id: T1529
+    name: System Shutdown/Reboot
