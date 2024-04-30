@@ -53,7 +53,7 @@ systemctl enable kibana.service    #
 systemctl start kibana.service     #
 #***********************************
 
-sleep 10
+sleep 15
 
 echo -e "************************ GESTION DES TOKENS ET CREDS ************************"
 

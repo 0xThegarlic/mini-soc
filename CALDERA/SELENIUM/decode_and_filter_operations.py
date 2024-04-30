@@ -1,3 +1,11 @@
+#*********************************************************************************************************
+#   Description : ce script permet de traiter les résultats de test d'opération CALDERA                  *
+#   Auteur : Laye                                                                                        *
+#   Version : 2.0                                                                                        *
+#   Date de la V1.0 : 14/04/2024                                                                         *
+#*********************************************************************************************************
+
+
 # Import des modules
 import json
 import base64
