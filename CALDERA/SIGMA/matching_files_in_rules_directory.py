@@ -1,25 +1,32 @@
+#***************************************************************************************************************************************************************************
+#   Description : Ce script Python recherche dans le répertoire rules les fichiers qui correspondent aux identifiants de technique extraits dans les opérations de CALDERA *
+#   Auteur : Laye                                                                                                                                                          *
+#   Version : 1                                                                                                                                                            *
+#   Date de la V1 : 17/04/2024                                                                                                                                             *
+#***************************************************************************************************************************************************************************
+
 import os
 import json
 
-# Chemin vers le répertoire contenant les fichiers rules
+# Chemin vers le répertoire contenant rules
 rules_directory = "rules"
 
-# Chargement du fichier le contenu du fichier JSON
+# On charge le contenu de resultats_operations_filtres.json dans data
 with open("resultats_operations_filtres.json", "r") as file:
     data = json.load(file)
 
-# Liste pour stocker les noms des fichiers correspondants aux technique_id
+# On crée une liste pour stocker les noms des fichiers correspondants aux technique_id
 matching_files = []
 
-# Parcourir chaque élément du fichier JSON
+# On parcourt chaque élément du fichier resultats_operations_filtres.json
 for item in data:
-    # Extraire la valeur de la clé technique_id
+    # On extrait la valeur de chaque technique_id de data
     technique_id = item.get("attack_metadata", {}).get("technique_id")
     if technique_id:
-        # Rechercher les fichiers correspondants dans le répertoire rules
+        # On cherche dans les fichiers correspondants dans le répertoire rules pour voir s'il y a une correspondance entre le technique_id (ici c'est les noms des fichiers depuis rules)
         matching_files.extend([f for f in os.listdir(rules_directory) if technique_id in f])
 
-# Afficher les noms des fichiers correspondants
+# On affiche les noms des fichiers correspondants
 if matching_files:
     print("Fichiers correspondants aux technique_id :")
     for file_name in matching_files:
