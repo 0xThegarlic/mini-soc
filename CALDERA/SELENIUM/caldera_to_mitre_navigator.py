@@ -1,4 +1,3 @@
-
 #******************************************************************************************************************************************************
 #   Description : ce script permet d'attribuer une couleur différente à chaque technique rencontrée dans le résultat des tests d'opération de CALDERA *
 #   Auteur : Laye                                                                                                                                     *
