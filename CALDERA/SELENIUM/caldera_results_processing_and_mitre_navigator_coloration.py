@@ -18,8 +18,11 @@ import random
 
 #***********************************FONCTION DE TRAITEMENT DES RESULTATS D'OPERATION CALDERA***********************************
 
+# Saisi du nom du fichier des résultats caldera
+name_of_caldera_results = input("Entrez le nom du fichier : ")
+
 # Chargement du fichier JSON contenant les résultats de test d'opération CALDERA
-with open('nom_du_fichier_operation.json', 'r') as f:
+with open(name_of_caldera_results, 'r') as f:
     resultats_operations = json.load(f)
 
 # Décodage du champ "command" de base64 en texte clair
