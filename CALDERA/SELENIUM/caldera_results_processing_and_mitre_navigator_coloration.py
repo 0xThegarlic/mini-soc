@@ -5,12 +5,13 @@
 #   ATTENTION !! La e script a été testé que sur Mitre Navigator 4.9.5 avec Layer 4.5 et attack 15 ("domain": "enterprise-attack")                      *
 #**************************************************************************************************************************************************************************************************************************************************
 
-#Références :
-#  - https://www.docstring.fr/glossaire/json/
-#  - https://python.doctor/page-apprendre-dictionnaire-python
-#  - https://stackabuse.com/bytes/generating-random-hex-colors-in-python/
-#  - https://www.programiz.com/python-programming/json
-
+'''
+Références :
+  - https://www.docstring.fr/glossaire/json/
+  - https://python.doctor/page-apprendre-dictionnaire-python
+  - https://stackabuse.com/bytes/generating-random-hex-colors-in-python/
+  - https://www.programiz.com/python-programming/json
+'''
 
 import json
 import base64
