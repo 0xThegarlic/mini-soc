@@ -48,6 +48,7 @@ Le déploiement de toute l’infrastructure SOC (SIEM + SOAR) a été réalisé 
 | Ubuntu Server 24.04  | 100 Go | 8 Go (Minimum) | Activer le SSH et avoir les accès root (admin) |
 
 
+Configuration globale avec les **ports**
 
 
 | **Ports** | **Plages IP** | **Commentaires** | **Identifiants par défauts** |
