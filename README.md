@@ -24,3 +24,4 @@ Ce projet est conçu pour répondre aux cas d'utilisation suivants :
 
 # Architecture projet
 
+![](Image/archi.jpg)
