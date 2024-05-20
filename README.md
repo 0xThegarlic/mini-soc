@@ -40,7 +40,6 @@ Ce projet est conçu pour répondre aux cas d'utilisation suivants :
 | **8888** | IP du SIEM | Accès à l'interface utilisateur de **CALDERA** | **red** : **nxokrsBxiDJnEhfNndx4kJ8lObUrrL-ud9AOCIncyzc** |
 | **9000** | IP du SOAR | Accès à l'interface utilisateur de **TheHive** | **admin@thehive.local** : **secret** |
 | **9001** | IP du SOAR | Accès à l'interface utilisateur de **CORTEX** | Créés par l’utilisateur |
-| **9000** | IP du SOAR | Accès à l'interface utilisateur de **TheHive** | **admin@thehive.local** : **secret** |
 | **9200** | IP du SIEM | Accès à **ElasticSearch.** (Si le **SIEM ELK** est déployé par l’utilisateur) | Générés aléatoirement lors de l’installation de **ELK** |
 
 # Déploiement du SOC
