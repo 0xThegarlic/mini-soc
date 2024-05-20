@@ -48,3 +48,23 @@ Ce projet est conçu pour répondre aux cas d'utilisation suivants :
 
 
 # Déploiement du SOAR
+
+
+
+
+# Intégration du SIEM au SOAR
+
+
+
+# Déploiement de CALDERA
+
+
+
+# Traitement des résultats d'opération de CALDERA
+
+
+
+# Coloration de Mitre ATT&CK Navigator via Python3
+
+
+
