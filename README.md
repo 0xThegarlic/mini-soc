@@ -30,6 +30,25 @@ Ce projet est conçu pour répondre aux cas d'utilisation suivants :
 
 # Exigences d'installation
 
+Le déploiement de toute l’infrastructure SOC (SIEM + SOAR) a été réalisé sur Ubuntu Server 24.04 LTS avec les caractéristiques suivantes :
+
+- **Infrastructure du SIEM**
+
+
+| SYSTEME | STOCKAGE | RAM |
+| --- | --- | --- |
+| Ubuntu Server 24.04  | 100 Go | 8 Go (Minimum) |
+
+
+- **Infrastructure du SOAR**
+
+
+| SYSTEME | STOCKAGE | RAM | Configuration |
+| --- | --- | --- | --- |
+| Ubuntu Server 24.04  | 100 Go | 8 Go (Minimum) | Activer le SSH et avoir les accès root (admin) |
+
+
+
 
 | **Ports** | **Plages IP** | **Commentaires** | **Identifiants par défauts** |
 | --- | --- | --- | --- |
