@@ -36,12 +36,12 @@ Ce projet est conçu pour répondre aux cas d'utilisation suivants :
 | **22** | IP du SOAR | Activer le SSH sur la machine hébergeant le SOAR |  |
 | **443** | IP du SOAR | Accès à l'interface utilisateur de **MISP** | **admin@admin.test** : **admin** |
 | **443** | IP du SIEM | Accès à **WAZUH** via le navigateur. (Si le **SIEM WAZUH** est déployé par l’utilisateur) | **admin** : **admin** |
-| **9200** | IP du SIEM | Accès à **ElasticSearch.** (Si le **SIEM ELK** est déployé par l’utilisateur) | Générés aléatoirement lors de l’installation de **ELK** |
 | **5601** | IP du SIEM | Accès à l'interface utilisateur de **KIBANA.** (Si le **SIEM ELK** est déployé par l’utilisateur) | Générés aléatoirement lors de l’installation de **ELK** |
-| **8889** | IP du SIEM | Accès à l'interface utilisateur de **CALDERA** | **red** : **nxokrsBxiDJnEhfNndx4kJ8lObUrrL-ud9AOCIncyzc** |
+| **8888** | IP du SIEM | Accès à l'interface utilisateur de **CALDERA** | **red** : **nxokrsBxiDJnEhfNndx4kJ8lObUrrL-ud9AOCIncyzc** |
+| **9000** | IP du SOAR | Accès à l'interface utilisateur de **TheHive** | **admin@thehive.local** : **secret** |
 | **9001** | IP du SOAR | Accès à l'interface utilisateur de **CORTEX** | Créés par l’utilisateur |
 | **9000** | IP du SOAR | Accès à l'interface utilisateur de **TheHive** | **admin@thehive.local** : **secret** |
-
+| **9200** | IP du SIEM | Accès à **ElasticSearch.** (Si le **SIEM ELK** est déployé par l’utilisateur) | Générés aléatoirement lors de l’installation de **ELK** |
 
 # Déploiement du SOC
 
