@@ -24,5 +24,3 @@ Ce projet est conçu pour répondre aux cas d'utilisation suivants :
 
 # Architecture projet
 
-
-![archi](https://github.com/0xThegarlic/mini-soc/assets/56412445/f1daf473-a144-4439-8609-7411b5385178)
