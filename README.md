@@ -21,3 +21,8 @@ Ce projet est conçu pour répondre aux cas d'utilisation suivants :
 - **Réponse active** aux menaces
 - **Création des règles de détection** via [**sigma-cli**](https://github.com/SigmaHQ/sigma-cli)
 - **Coloration de la matrice** [**Mitre ATT&CK Navigator**](https://mitre-attack.github.io/attack-navigator/) via python
+
+# Architecture projet
+
+
+![archi](https://github.com/0xThegarlic/mini-soc/assets/56412445/f1daf473-a144-4439-8609-7411b5385178)
