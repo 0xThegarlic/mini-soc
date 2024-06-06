@@ -37,7 +37,7 @@ Le déploiement de toute l’infrastructure SOC (SIEM + SOAR) a été réalisé 
 
 | SYSTEME | STOCKAGE | RAM |
 | --- | --- | --- |
-| Ubuntu Server 24.04  | 100 Go | 8 Go (Minimum) |
+| Ubuntu Server 22.04  | 100 Go | 8 Go (Minimum) |
 
 
 - **Infrastructure du SOAR**
@@ -45,7 +45,7 @@ Le déploiement de toute l’infrastructure SOC (SIEM + SOAR) a été réalisé 
 
 | SYSTEME | STOCKAGE | RAM | Configuration |
 | --- | --- | --- | --- |
-| Ubuntu Server 24.04  | 100 Go | 8 Go (Minimum) | Activer le SSH et avoir les accès root (admin) |
+| Ubuntu Server 22.04  | 100 Go | 8 Go (Minimum) | Activer le SSH et avoir les accès root (admin) |
 
 
 Configuration globale avec les **ports**
