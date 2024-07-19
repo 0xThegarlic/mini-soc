@@ -113,6 +113,9 @@ deploiement_soar() {
             # Copie du répertoire SOAR vers la machine hébergeant le SOAR
             scp -r SOAR $SOAR_USER@$SOAR_IP:~/
 
+            #test
+            ssh $SOAR_USER@$SOAR_IP "cd SOAR && sudo -S apt install docker.io -y && apt intall docker-compose -y"
+
             # Déploiement du SOAR via Docker-Compose
             ssh $SOAR_USER@$SOAR_IP "cd SOAR && sed -i 's/my_ip/$SOAR_IP/g' docker-compose.yml && sudo -S docker-compose up -d"
 

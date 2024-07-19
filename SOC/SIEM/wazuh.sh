@@ -151,7 +151,7 @@ systemctl start filebeat           #
 #filebeat test output
 
 
-echo -e "***************************** WAZUH-DASHBOARD *****************************"
+echo -e "***************************** INSTALLATION DE WAZUH DASHBOARD *****************************"
 
 # Installation de Wazuh Dashboard
 apt-get -y install wazuh-dashboard
@@ -188,4 +188,4 @@ echo -e "************************ SUPPRESSION DES CERTIFICATS ******************
 rm -rf wazuh-cert*
 rm config.yml
 
-echo -e "******************** Vous pouvez accéder au dashboard de wazuh via : https://$(hostname -I | awk '{print $1}') avec les identifiants : (admin : admin)"
+echo -e "******************** Vous pouvez accéder au dashboard de wazuh via : https://$(hostname -I | awk '{print $1}') avec les identifiants : (admin : admin) ********************"

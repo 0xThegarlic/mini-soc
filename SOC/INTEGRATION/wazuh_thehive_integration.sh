@@ -6,10 +6,8 @@
 #   Version : 1.0                                                                                       *
 #   Date de la V1.0 : 09/04/2024									*
 #   Date de la V2.0 : 12/04/2024                                                                        *
+#   Date de la V3.0 : 19/07/2024
 #********************************************************************************************************
-
-# Fichier déclaratif
-source data.txt
 
 
 echo -e "**************************** Installation de pip3 ****************************"
@@ -33,8 +31,10 @@ echo -e "**************** Attribution des droits nécessaires aux fichiers d'int
 sudo chmod 755 /var/ossec/integrations/custom-w2thive*
 sudo chown root:wazuh /var/ossec/integrations/custom-w2thive*
 
-# Saisie de la clé API de TheHive
+# Saisie de l'IP et la clé API de TheHive
+read -p "Veuillez saisir l'IP du SOAR : " soar_ip
 read -p "Veuillez saisir la clé API de l'utilisateur de TheHive : " api_key
+
 
 echo -e "********************* Insertion de la section d'integration dans ossec.conf *********************"
 
